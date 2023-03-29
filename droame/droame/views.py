@@ -175,5 +175,54 @@ def addCustomer(request):
 
 def removeCustomer(request,customer_id):
     Customer.objects.get(id=customer_id).delete()
-    return render(request, 'droame/customers.html', {})
+    customers = Customer.objects.all()
+    return render(request, 'droame/customers.html', {'customers': customers})
+
+
+
+def droneshots(request):
+    droneshots = DroneShot.objects.all()
+    return render(request, 'droame/droneshots.html', {'droneshots': droneshots})
+
+
+def addDroneShot(request):
+    method = False
+    if request.method == 'POST':
+        method = True
+    if method and request.POST.get('type') and request.POST.get('addedBy'):
+        saverecord = DroneShot()
+        saverecord.type = request.POST.get('type')
+        saverecord.addedBy = request.POST.get('addedBy')
+        saverecord.save()
+        droneshots = DroneShot.objects.all()
+        return render(request, 'droame/droneshots.html', {'droneshots': droneshots})
+    else:
+        operators = Operator.objects.all()
+        return render(request, 'droame/addDroneShot.html', {'operators': operators})
+
+
+def editDroneShot(request, drone_shot_id):
+    method = False
+    if request.method == 'POST':
+        method = True
+    if method and request.POST.get('type') and request.POST.get('addedBy'):
+        DroneShot.objects.filter(id=drone_shot_id).update(type=request.POST.get('type'), addedBy=request.POST.get('addedBy'))
+        droneshots = DroneShot.objects.all()
+        return render(request, 'droame/droneshots.html', {'droneshots': droneshots})
+    else:
+        droneshot = DroneShot.objects.get(id=drone_shot_id)
+        operators = Operator.objects.all()
+        return render(request, 'droame/editDroneShot.html', {'droneshot': droneshot, 'operators': operators})
+
+
+def removeDroneShot(request, drone_shot_id):
+    DroneShot.objects.get(id=drone_shot_id).delete()
+    droneshots = DroneShot.objects.all()
+    return render(request, 'droame/droneshots.html', {'droneshots':droneshots})
+
+
+
+
+
+
 

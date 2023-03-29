@@ -29,4 +29,8 @@ urlpatterns = [
     path('addCustomer/', views.addCustomer, name='add-customer'),
     path('editCustomer/<int:customer_id>', views.editCustomer, name='edit-customer'),
     path('removeCustomer/<int:customer_id>', views.removeCustomer, name='remove-customer'),
+    path('droneshots/', views.droneshots, name='droneshots'),
+    path('addDroneShot/', views.addDroneShot, name='add-drone-shot'),
+    path('editDroneShot/<int:drone_shot_id>', views.editDroneShot, name='edit-drone-shot'),
+    path('removeDroneShot/<int:drone_shot_id>', views.removeDroneShot, name='remove-drone-shot'),
 ]

@@ -56,8 +56,8 @@ class Location(models.Model):
 
 class Booking(models.Model):
     id = models.AutoField(primary_key=True)
-    location_id = models.ForeignKey(Location, null=False, on_delete=models.CASCADE)
-    drone_shot_id = models.ForeignKey(DroneShot, null=False, on_delete=models.CASCADE)
+    location_id = models.IntegerField()
+    drone_shot_id = models.IntegerField()
     datetime = models.DateTimeField(null=False, default=timezone.now())
     totalRent = models.IntegerField()
     duration = models.IntegerField()
