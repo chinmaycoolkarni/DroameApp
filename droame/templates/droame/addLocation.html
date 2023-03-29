@@ -1,7 +1,7 @@
 {% extends 'droame/base.html' %}
 
 {% block title %}
-  Edit Drone Shot
+  Add Location
 {% endblock title %}
 
 {% block content %}
@@ -9,7 +9,7 @@
     <br>
     <h1 class="mt-4">
         <i class="fa fa-users" aria-hidden="true"></i>
-        Edit Drone Shot</h1>
+        Add Location</h1>
     <br>
     <div class="content">
         <div class="block">
@@ -25,21 +25,42 @@
                         {% endfor %}
                         </ul>
                         {% endif %}
-                    <form class="js-validation-bootstrap" action="../editDroneShot/{{droneshot.id}}" method="post">
+                    <form class="js-validation-bootstrap" action="{% url 'add-location' %}" method="post">
                         {% csrf_token %}
                         <br>
                         <div class="form-group row">
-                            <label class="col-lg-4 col-form-label">Type</label>
+                            <label class="col-lg-4 col-form-label">Name</label>
                             <div class="col-lg-8">
-                                <input type="text" value="{% if droneshot.type %}{{droneshot.type}}{% endif %}" class="form-control" id="val-name" name="type" placeholder="Type" >
+                                <input type="text" value="{% if saverecord.name %}{{saverecord.name}}{% endif %}" class="form-control" id="val-name" name="name" placeholder="Name" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">State</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="{% if saverecord.state %}{{saverecord.state}}{% endif %}" class="form-control" id="val-state" name="state" placeholder="State" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Country</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="{% if saverecord.country %}{{saverecord.country}}{% endif %}" class="form-control" id="val-country" name="country" placeholder="Country" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Pincode</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="{% if saverecord.pincode %}{{saverecord.pincode}}{% endif %}" class="form-control" id="val-pincode" name="pincode" placeholder="Pincode" required>
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                                 <label class="col-lg-4 col-form-label">Added By</label>
                                 <div class="col-lg-8">
-                                    <select name="addedBy" id="val-addedby">
-                                        <option value="{% if droneshot.addedBy %}{{ droneshot.addedBy }}{% endif %}" selected>{% if droneshot %}{{ droneshot.addedBy }}{% else %}Choose{% endif %}</option>
+                                    <select name="addedBy" id="val-addedby" required>
+                                        <option value="{% if saverecord.addedBy %}{{ saverecord.addedBy }}{% endif %}" selected>{% if saverecord %}{{ saverecord.addedBy }}{% else %}Choose{% endif %}</option>
                                         {% for operator in operators %}
                                         <option>{{operator.name}}</option>
                                         {% endfor %}
@@ -54,7 +75,7 @@
 
                         <button class="btn btn-danger" style="margin: 1rem;">
                             <i class="fa fa-times" aria-hidden="true"></i>
-                            <a href="{% url 'droneshots' %}" style="color: azure;">Cancel</a>
+                            <a href="{% url 'locations' %}" style="color: azure;">Cancel</a>
                         </button>
                     </form>
                     </hr>

@@ -222,6 +222,51 @@ def removeDroneShot(request, drone_shot_id):
 
 
 
+def locations(request):
+    locations = Location.objects.all()
+    return render(request, 'droame/locations.html', {'locations': locations})
+
+
+def addLocation(request):
+    method = False
+    if request.method == 'POST':
+        method = True
+    if method and request.POST.get('name') and request.POST.get('state') and request.POST.get('country') and request.POST.get('pincode') and request.POST.get('addedBy'):
+        saverecord = Location()
+        saverecord.name = request.POST.get('name')
+        saverecord.state = request.POST.get('state')
+        saverecord.country = request.POST.get('country')
+        saverecord.pincode = request.POST.get('pincode')
+        saverecord.addedBy = request.POST.get('addedBy')
+        saverecord.save()
+        locations = Location.objects.all()
+        return render(request, 'droame/locations.html', {'locations': locations})
+    else:
+        operators = Operator.objects.all()
+        return render(request, 'droame/addLocation.html', {'operators': operators})
+
+
+def editLocation(request, location_id):
+    method = False
+    if request.method == 'POST':
+        method = True
+    if method and request.POST.get('name') and request.POST.get('state') and request.POST.get('country') and request.POST.get('pincode') and request.POST.get('addedBy'):
+        Location.objects.filter(id=location_id).update(name=request.POST.get('name'), state=request.POST.get('state'), country=request.POST.get('country'), pincode=request.POST.get('pincode'), addedBy=request.POST.get('addedBy'))
+        locations = Location.objects.all()
+        return render(request, 'droame/locations.html', {'locations': locations})
+    else:
+        saverecord = Location.objects.get(id=location_id)
+        operators = Operator.objects.all()
+        return render(request, 'droame/editLocation.html', {'saverecord': saverecord, 'operators': operators})
+
+
+def removeLocation(request, location_id):
+    Location.objects.get(id=location_id).delete()
+    locations = Location.objects.all()
+    return render(request, 'droame/locations.html', {'locations': locations})
+
+
+
 
 
 

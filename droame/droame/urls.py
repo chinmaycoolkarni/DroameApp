@@ -33,4 +33,8 @@ urlpatterns = [
     path('addDroneShot/', views.addDroneShot, name='add-drone-shot'),
     path('editDroneShot/<int:drone_shot_id>', views.editDroneShot, name='edit-drone-shot'),
     path('removeDroneShot/<int:drone_shot_id>', views.removeDroneShot, name='remove-drone-shot'),
+    path('locations/', views.locations, name='locations'),
+    path('addLocation/', views.addLocation, name='add-location'),
+    path('editLocation/<int:location_id>', views.editLocation, name='edit-location'),
+    path('removeLocation/<int:location_id>', views.removeLocation, name='remove-location'),
 ]
