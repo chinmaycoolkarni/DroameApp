@@ -4,8 +4,11 @@ DROAME Selection Task
 Task 2: Web Application
 Tech Stack: Django, HTML, CSS, JS
 Database: SQL
+
 Github link: https://github.com/chinmaycoolkarni/DroameApp
+
 Demonstration Video link: https://drive.google.com/drive/folders/1AFM_dEvJtSgtodJEsq7v2fmYu64822Fj?usp=sharing
+
 Summary:
 •	My application comprises of five modules as follows:
 1.	Authentication Module
