@@ -24,5 +24,9 @@ urlpatterns = [
     path('', views.login, name='login'),
     path('homepage/', views.homepage, name='homepage'),
     path('forgot-password/', views.forgotPassword, name='forgot-pass'),
-
+    path('logout/', views.logout, name='logout'),
+    path('customers/', views.customers, name='customers'),
+    path('addCustomer/', views.addCustomer, name='add-customer'),
+    path('editCustomer/<int:customer_id>', views.editCustomer, name='edit-customer'),
+    path('removeCustomer/<int:customer_id>', views.removeCustomer, name='remove-customer'),
 ]
