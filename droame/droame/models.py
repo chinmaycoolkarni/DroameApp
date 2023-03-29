@@ -56,6 +56,7 @@ class Location(models.Model):
 
 class Booking(models.Model):
     id = models.AutoField(primary_key=True)
+    customer_id = models.IntegerField()
     location_id = models.IntegerField()
     drone_shot_id = models.IntegerField()
     datetime = models.DateTimeField(null=False, default=timezone.now())

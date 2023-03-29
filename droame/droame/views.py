@@ -267,6 +267,61 @@ def removeLocation(request, location_id):
 
 
 
+def bookings(request):
+    bookings = Booking.objects.all()
+    return render(request, 'droame/bookings.html', {'bookings': bookings})
+
+
+def addBooking(request):
+    method = False
+    if request.method == 'POST':
+        method = True
+    if method and request.POST.get('custid') and request.POST.get('locid') and request.POST.get('dsid') and request.POST.get('datetime') and request.POST.get('totalRent') and request.POST.get('duration') and request.POST.get('addedBy'):
+        saverecord = Booking()
+        cus = Customer.objects.get(name=request.POST.get('custid'))
+        saverecord.location_id = cus.id
+        loc = Location.objects.get(name = request.POST.get('locid'))
+        saverecord.location_id = loc.id
+        ds = DroneShot.objects.get(type=request.POST.get('dsid'))
+        saverecord.drone_shot_id = ds.id
+        saverecord.datetime = request.POST.get('datetime')
+        saverecord.totalRent = request.POST.get('totalRent')
+        saverecord.duration = request.POST.get('duration')
+        saverecord.addedBy = request.POST.get('addedBy')
+        saverecord.save()
+        bookings = Booking.objects.all()
+        return render(request, 'droame/bookings.html', {'bookings': bookings})
+    else:
+        operators = Operator.objects.all()
+        customers = Customer.objects.all()
+        locations = Location.objects.all()
+        return render(request, 'droame/addBooking.html', {'operators': operators, 'customers': customers, 'locations': locations})
+
+
+def editBooking(request, booking_id):
+    method = False
+    if request.method == 'POST':
+        method = True
+    if method and request.POST.get('custid') and request.POST.get('locid') and request.POST.get('dsid') and request.POST.get('datetime') and request.POST.get('totalRent') and request.POST.get('duration') and request.POST.get('addedBy'):
+        cus = Customer.objects.get(name=request.POST.get('custid'))
+        loc = Location.objects.get(name=request.POST.get('locid'))
+        ds = DroneShot.objects.get(type=request.POST.get('dsid'))
+        Booking.objects.filter(id=booking_id).update(customer_id=cus.id, location_id=loc.id, drone_shot_id=ds.id, datetime=request.POST.get('datetime'), totalRent=request.POST.get('totalRent'), duration=request.POST.get('duration'), addedBy=request.POST.get('addedBy'))
+        bookings = Booking.objects.all()
+        return render(request, 'droame/bookings.html', {'bookings': bookings})
+    else:
+        saverecord = Booking.objects.get(id=booking_id)
+        operators = Operator.objects.all()
+        return render(request, 'droame/editBooking.html', {'saverecord': saverecord, 'operators': operators})
+
+
+def removeBooking(request, booking_id):
+    Booking.objects.get(id=booking_id).delete()
+    bookings = Booking.objects.all()
+    return render(request, 'droame/bookings.html', {'bookings': bookings})
+
+
+
 
 
 

@@ -1,0 +1,117 @@
+{% extends 'droame/base.html' %}
+
+{% block title %}
+  Add Booking
+{% endblock title %}
+
+{% block content %}
+<div class="conatiner-fluid px-4">
+    <br>
+    <h1 class="mt-4">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        Add Booking</h1>
+    <br>
+    <div class="content">
+        <div class="block">
+            <div class="block-content">
+                <div class="row justify-content-start py-20">
+                    <div class="col-xl-6">
+                    </hr>
+                        <br>
+                        {% if messages %}
+                        <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                        {% endif %}
+                    <form class="js-validation-bootstrap" action="{% url 'add-booking' %}" method="post">
+                        {% csrf_token %}
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Customer</label>
+                            <div class="col-lg-8">
+                                    <select name="custid" id="val-custid" required>
+                                        <option value="{% if saverecord.customer_id %}{{ saverecord.customer_id }}{% endif %}" selected>{% if saverecord %}{{ saverecord.customer_id }}{% else %}Choose{% endif %}</option>
+                                        {% for customer in customers %}
+                                        <option>{{customer.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Location</label>
+                            <div class="col-lg-8">
+                                    <select name="locid" id="val-locid" required>
+                                        <option value="{% if saverecord.location_id %}{{ saverecord.location_id }}{% endif %}" selected>{% if saverecord %}{{ saverecord.location_id }}{% else %}Choose{% endif %}</option>
+                                        {% for location in locations %}
+                                        <option>{{location.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Drone Shot Type</label>
+                            <div class="col-lg-8">
+                                    <select name="dsid" id="val-dsid" required>
+                                        <option value="{% if saverecord.drone_shot_id %}{{ saverecord.drone_shot_id }}{% endif %}" selected>{% if saverecord %}{{ saverecord.drone_shot_id }}{% else %}Choose{% endif %}</option>
+                                        {% for droneshot in droneshots %}
+                                        <option>{{droneshot.type}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Date/Time</label>
+                            <div class="col-lg-8">
+                                <input type="datetime-local" value="{% if saverecord.datetime %}{{saverecord.datetime}}{% endif %}" class="form-control" id="val-datetime" name="datetime" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Total Rent</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="{% if saverecord.totalRent %}{{saverecord.totalRent}}{% endif %}" class="form-control" id="val-totalRent" name="totalRent" placeholder="Total Rent" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Duratiom</label>
+                            <div class="col-lg-8">
+                                <input type="text" value="{% if saverecord.duration %}{{saverecord.duration}}{% endif %}" class="form-control" id="val-duration" name="duration" placeholder="Duration(In hours)" required>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                                <label class="col-lg-4 col-form-label">Added By</label>
+                                <div class="col-lg-8">
+                                    <select name="addedBy" id="val-addedby" required>
+                                        <option value="{% if saverecord.addedBy %}{{ saverecord.addedBy }}{% endif %}" selected>{% if saverecord %}{{ saverecord.addedBy }}{% else %}Choose{% endif %}</option>
+                                        {% for operator in operators %}
+                                        <option>{{operator.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        <br>
+                        <button type="submit"class="btn btn-success" value="Submit" style="margin: 1rem;">
+                            <i class="fas fa-save"></i>
+                            <a>Save</a>
+                        </button>
+
+                        <button class="btn btn-danger" style="margin: 1rem;">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            <a href="{% url 'bookings' %}" style="color: azure;">Cancel</a>
+                        </button>
+                    </form>
+                    </hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

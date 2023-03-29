@@ -37,4 +37,8 @@ urlpatterns = [
     path('addLocation/', views.addLocation, name='add-location'),
     path('editLocation/<int:location_id>', views.editLocation, name='edit-location'),
     path('removeLocation/<int:location_id>', views.removeLocation, name='remove-location'),
+    path('bookings/', views.bookings, name='bookings'),
+    path('addBooking/', views.addBooking, name='add-booking'),
+    path('editBooking/<int:booking_id>', views.editBooking, name='edit-booking'),
+    path('removeBooking/<int:booking_id>', views.removeBooking, name='remove-booking'),
 ]
