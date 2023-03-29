@@ -279,7 +279,7 @@ def addBooking(request):
     if method and request.POST.get('custid') and request.POST.get('locid') and request.POST.get('dsid') and request.POST.get('datetime') and request.POST.get('totalRent') and request.POST.get('duration') and request.POST.get('addedBy'):
         saverecord = Booking()
         cus = Customer.objects.get(name=request.POST.get('custid'))
-        saverecord.location_id = cus.id
+        saverecord.customer_id = cus.id
         loc = Location.objects.get(name = request.POST.get('locid'))
         saverecord.location_id = loc.id
         ds = DroneShot.objects.get(type=request.POST.get('dsid'))
@@ -295,7 +295,8 @@ def addBooking(request):
         operators = Operator.objects.all()
         customers = Customer.objects.all()
         locations = Location.objects.all()
-        return render(request, 'droame/addBooking.html', {'operators': operators, 'customers': customers, 'locations': locations})
+        droneshots = DroneShot.objects.all()
+        return render(request, 'droame/addBooking.html', {'droneshots':droneshots,'operators': operators, 'customers': customers, 'locations': locations})
 
 
 def editBooking(request, booking_id):
